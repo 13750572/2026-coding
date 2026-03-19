@@ -1,0 +1,17 @@
+# week04-5.py 學習計畫 prefix sum 第2題
+# LeetCode 724. Find Pivot Index
+class Solution:
+    def pivotIndex(self, nums: list[int]) -> int:
+        N = len(nums)  # 陣列的長度
+        prefix = [0]  # 一開始 prefix sum 只有 1 個 [0]
+        for i in range(N):
+            prefix.append( prefix[-1] + nums[i] )  # 陣列變長了
+        # print(prefix)  # debug 印出來看一下
+        postfix = [0] * (N + 1)
+        for i in range(N-1, -1, -1):
+            postfix[i] = postfix[i+1] + nums[i]
+            if prefix[i] == postfix[i+1]: return i
+        # print(postfix)
+        return -1
+
+postfix = [0]
